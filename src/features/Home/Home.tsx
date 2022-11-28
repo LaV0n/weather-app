@@ -5,7 +5,7 @@ import {IconButton, InputBase, Paper} from '@mui/material'
 import SearchIcon from "@mui/icons-material/Search";
 import {useState, KeyboardEvent} from "react";
 import {useAppDispatch} from "../../app/store";
-import {setLocation} from "../../app/appReducer";
+import {getLocationTC} from "../../app/appReducer";
 import {useNavigate} from "react-router-dom";
 
 export const Home = () => {
@@ -15,7 +15,7 @@ export const Home = () => {
     const navigate = useNavigate()
 
     const searchHandler = () => {
-        dispatch(setLocation({location: value}))
+        dispatch(getLocationTC(value))
         setValue('')
         navigate('/main')
     }
