@@ -1,0 +1,60 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(103.6deg, #C08CEA 58.43%, rgba(150, 199, 255, 0) 105.78%);;
+
+  .inputBlock {
+    width: 50%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+    .inputForm{
+      width: 70%;
+      background-color: rgba(0, 0, 0, 0.22);
+      display: flex;
+      border-radius: 30px;
+      justify-content: space-between;
+      align-items: center;
+      .input{
+        padding: 0 20px;
+        font-size: 30px;
+        color: white;
+      }
+      .searchButton{
+        width: 10px;
+        height: 10px;
+        margin-right: 10px;
+        padding: 20px 20px;
+        background-color: white;
+      }
+    }
+    p{
+      font-size: 30px;
+      width: 70%;
+     font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  .imgBlock {
+    width: 50%;
+
+    img {
+    width: 100%;
+    }
+    .iphoneImg{
+      width: calc(18vw );
+      position: absolute;
+      left: calc(55vw);
+
+    }
+  }
+}
