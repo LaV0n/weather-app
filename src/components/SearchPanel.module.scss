@@ -1,0 +1,20 @@
+.inputForm{
+  width: 70%;
+  background-color: rgba(0, 0, 0, 0.22);
+  display: flex;
+  border-radius: 30px;
+  justify-content: space-between;
+  align-items: center;
+  .input{
+    padding: 0 20px;
+    font-size: 30px;
+    color: white;
+  }
+  .searchButton{
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    padding: 20px 20px;
+    background-color: white;
+  }
+}
