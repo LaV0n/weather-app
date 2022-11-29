@@ -1,18 +1,19 @@
 import {
     appReducer,
     getLocationTC,
-    InitialStateType, LocationResultData,
+    InitialStateType, LocationType,
     setStatus,
 } from "../app/appReducer";
 
 let initialState: InitialStateType = {
-    locationName: '',
     location: {
+        name: '',
         lon: 0,
         lat: 0,
         country: '',
         state: ''
     },
+    locations:[],
     status: 'success',
     notice: '',
     weatherData: {
@@ -52,13 +53,14 @@ let initialState: InitialStateType = {
 }
 beforeEach(() => {
     initialState = {
-        locationName: '',
         location: {
+            name: '',
             lon: 0,
             lat: 0,
             country: '',
             state: ''
         },
+        locations:[],
         status: 'success',
         notice: '',
         weatherData: {
@@ -99,21 +101,19 @@ beforeEach(() => {
 })
 
 test('get correct coordinates', () => {
-        let result:LocationResultData = {
-            locationName: 'London',
-            location: {
+        let result:LocationType = {
+                name: 'London',
                 lon: 51.5073219,
                 lat: 51.5073219,
                 country: 'GB',
                 state: "string"
-            }
         }
 
 
         const action = getLocationTC.fulfilled(result, 'London', ' requestId')
         const endState = appReducer(initialState, action)
 
-        expect(endState.locationName).toBe('London')
+        expect(endState.location.name).toBe('London')
         expect(endState.location.lat).toBe(51.5073219)
 
     }

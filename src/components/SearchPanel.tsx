@@ -4,18 +4,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import {KeyboardEvent, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../app/store";
 import {useNavigate} from "react-router-dom";
-import {getLocationTC, getWeatherDataTC} from "../app/appReducer";
+import {getLocationTC, getWeatherDataTC, LocationType, setLocations} from "../app/appReducer";
 
-export const SearchPanel=()=>{
+export const SearchPanel = () => {
 
     const [value, setValue] = useState<string>('')
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const position=useAppSelector(state => state.app.location)
+    const locations = useAppSelector(state => state.app.locations)
 
     const searchHandler = () => {
         dispatch(getLocationTC(value))
-        dispatch(getWeatherDataTC({lon:position.lon,lat:position.lat}))
         setValue('')
         navigate('/main')
     }
@@ -26,10 +25,14 @@ export const SearchPanel=()=>{
         }
     }
 
-    return(
-            <div
-                className={styles.inputForm}
-            >
+    const setLocationHandler = (l:LocationType) => {
+        dispatch(getWeatherDataTC({lon:l.lon, lat:l.lat}))
+        dispatch(setLocations({locations:[l]}))
+    }
+
+    return (
+        <div className={styles.inputBlock}>
+            <div className={styles.inputForm}>
                 <InputBase
                     className={styles.input}
                     placeholder="What’s The Weather??"
@@ -44,5 +47,19 @@ export const SearchPanel=()=>{
                     <SearchIcon/>
                 </IconButton>
             </div>
+            {locations.length > 1
+                && <div className={styles.locations}>
+                    {
+                        locations.map(l =>
+                            <button key={l.name}
+                                    className={styles.location}
+                                    onClick={() => setLocationHandler(l)}>
+                                {l.name}{l.country}{l.state}
+                            </button>)
+                    }
+                </div>
+
+            }
+        </div>
     )
 }

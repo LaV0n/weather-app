@@ -1,11 +1,10 @@
 import styles from './Main.module.scss'
-import {useAppDispatch, useAppSelector} from "../../app/store";
+import { useAppSelector} from "../../app/store";
 import {SearchPanel} from "../../components/SearchPanel";
 
 export const Main = () => {
 
-    const dispatch = useAppDispatch()
-    const locationName = useAppSelector(state => state.app.locationName)
+    const locationName = useAppSelector(state => state.app.location.name)
     const country = useAppSelector(state => state.app.location.country)
     const state = useAppSelector(state => state.app.location.state)
     const weatherData=useAppSelector(state=>state.app.weatherData)

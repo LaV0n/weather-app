@@ -3,6 +3,13 @@ import {locationAPI} from "../api/location-api";
 import {PositionType, weatherApi} from "../api/weather-api";
 
 type StatusType = 'success' | 'loading' | 'error'
+export type LocationType={
+    name: string
+    lon: number,
+    lat: number,
+    country: string,
+    state: string
+}
 export type WeatherDataType = {
     weather: [
         {
@@ -39,26 +46,22 @@ export type WeatherDataType = {
 }
 
 export type InitialStateType = {
-    locationName: string
-    location: {
-        lon: number,
-        lat: number,
-        country: string,
-        state: string
-    }
+    location: LocationType
+    locations:LocationType[]
     status: StatusType
     notice: string,
     weatherData: WeatherDataType
 }
 
 const initialState: InitialStateType = {
-    locationName: '',
     location: {
+        name: '',
         lon: 0,
         lat: 0,
         country: '',
         state: ''
     },
+    locations:[],
     status: 'success',
     notice: '',
     weatherData: {
@@ -103,15 +106,20 @@ const slice = createSlice({
     reducers: {
         setStatus(state, action: PayloadAction<{ status: StatusType }>) {
             state.status = action.payload.status
-        }
+        },
+        setLocations(state,action:PayloadAction<{locations:LocationType[]}>){
+            if(action.payload.locations.length!==1){
+                state.locations=action.payload.locations
+            }else {
+                state.locations=action.payload.locations
+                state.location=action.payload.locations[0]
+            }
+        },
+
     },
     extraReducers: builder => {
         builder.addCase(getLocationTC.fulfilled, (state, action) => {
-            state.location.lon = action.payload.location.lon
-            state.location.lat = action.payload.location.lat
-            state.location.state = action.payload.location.state
-            state.location.country = action.payload.location.country
-            state.locationName = action.payload.locationName
+            state.location = action.payload
             state.status = 'success'
         })
         builder.addCase(getLocationTC.rejected, (state, action) => {
@@ -130,22 +138,32 @@ const slice = createSlice({
 })
 
 export const appReducer = slice.reducer
-export const {setStatus} = slice.actions
+export const {setStatus,setLocations} = slice.actions
 
-export const getLocationTC = createAsyncThunk<LocationResultData, string, { rejectValue: { error: string } }>
+export const getLocationTC = createAsyncThunk<LocationType, string, { rejectValue: { error: string } }>
 ('app/getLocation',
     async (location, {dispatch, rejectWithValue}) => {
         dispatch(setStatus({status: 'loading'}))
         try {
             const res = await locationAPI.getLocation(location)
-            let result: LocationResultData = {
-                locationName: res.data[0].name,
-                location: {
-                    lon: res.data[0].lon,
-                    lat: res.data[0].lat,
-                    country: res.data[0].country,
-                    state: res.data[0].state
-                }
+            let result: LocationType={
+                    name: '',
+                    lon: 0,
+                    lat:0,
+                    country:'',
+                    state: ''
+            }
+            if(res.data.length===1){
+                 result = {
+                        name: res.data[0].name,
+                        lon: res.data[0].lon,
+                        lat: res.data[0].lat,
+                        country: res.data[0].country,
+                        state: res.data[0].state
+            }
+          dispatch(getWeatherDataTC({lon:res.data[0].lon,lat:res.data[0].lat}))
+            }else {
+                dispatch(setLocations({locations:res.data}))
             }
             return result
         } catch (error: any) {
@@ -165,12 +183,3 @@ export const getWeatherDataTC = createAsyncThunk<WeatherDataType, PositionType, 
         }
     })
 
-export type LocationResultData = {
-    locationName: string
-    location: {
-        lon: number,
-        lat: number,
-        country: string,
-        state: string
-    }
-}
