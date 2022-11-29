@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {locationAPI} from "../api/location-api";
-import {weatherApi} from "../api/weather-api";
+import {PositionType, weatherApi} from "../api/weather-api";
 
 type StatusType = 'success' | 'loading' | 'error'
 export type WeatherDataType = {
@@ -112,11 +112,17 @@ const slice = createSlice({
             state.location.state = action.payload.location.state
             state.location.country = action.payload.location.country
             state.locationName = action.payload.locationName
-            state.weatherData=action.payload.weatherData
-
             state.status = 'success'
         })
         builder.addCase(getLocationTC.rejected, (state, action) => {
+            state.notice = action.payload ? action.payload.error : 'unknown error, please try again later'
+            state.status = 'error'
+        })
+        builder.addCase(getWeatherDataTC.fulfilled,(state,action)=>{
+            state.weatherData=action.payload
+            state.status = 'success'
+        })
+        builder.addCase(getWeatherDataTC.rejected, (state, action) => {
             state.notice = action.payload ? action.payload.error : 'unknown error, please try again later'
             state.status = 'error'
         })
@@ -126,15 +132,13 @@ const slice = createSlice({
 export const appReducer = slice.reducer
 export const {setStatus} = slice.actions
 
-export const getLocationTC = createAsyncThunk<WeatherResultData, string, { rejectValue: { error: string } }>
-('location/getLocation',
+export const getLocationTC = createAsyncThunk<LocationResultData, string, { rejectValue: { error: string } }>
+('app/getLocation',
     async (location, {dispatch, rejectWithValue}) => {
         dispatch(setStatus({status: 'loading'}))
         try {
             const res = await locationAPI.getLocation(location)
-            const data = await weatherApi.getWeather({lon: res.data[0].lon, lat: res.data[0].lat})
-            let result: WeatherResultData = {
-                weatherData: data.data,
+            let result: LocationResultData = {
                 locationName: res.data[0].name,
                 location: {
                     lon: res.data[0].lon,
@@ -149,8 +153,19 @@ export const getLocationTC = createAsyncThunk<WeatherResultData, string, { rejec
         }
     })
 
-export type WeatherResultData = {
-    weatherData: WeatherDataType,
+export const getWeatherDataTC = createAsyncThunk<WeatherDataType, PositionType, {rejectValue: { error: string }}>
+('app/getWeatherData',
+    async (position,{ dispatch, rejectWithValue}) => {
+        dispatch(setStatus({status: 'loading'}))
+        try {
+            const data = await weatherApi.getWeather(position)
+            return data.data
+        } catch (error: any) {
+            return rejectWithValue({error})
+        }
+    })
+
+export type LocationResultData = {
     locationName: string
     location: {
         lon: number,

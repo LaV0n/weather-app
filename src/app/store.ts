@@ -11,7 +11,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 
 export type AppDispatchType = typeof store.dispatch
 
-export const useAppDispatch = () => useDispatch<typeof store.dispatch>()
+export const useAppDispatch = () => useDispatch<AppDispatchType>()
 
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
