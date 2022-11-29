@@ -8,6 +8,7 @@ export const Main = () => {
     const locationName = useAppSelector(state => state.app.locationName)
     const country = useAppSelector(state => state.app.location.country)
     const state = useAppSelector(state => state.app.location.state)
+    const weatherData=useAppSelector(state=>state.app.weatherData)
 
     return (
         <div className={styles.container}>
@@ -22,6 +23,10 @@ export const Main = () => {
                             <div>country: <span>{country}</span></div>
                             <div>state: <span>{state}</span></div>
                         </div>
+                    </div>
+                    <div>
+                        {weatherData.weather[0].main}
+                        {weatherData.main.temp}
                     </div>
 
                 </div>

@@ -8,7 +8,7 @@ import {getLocationTC} from "../app/appReducer";
 
 export const SearchPanel=()=>{
 
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState<string>('')
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
