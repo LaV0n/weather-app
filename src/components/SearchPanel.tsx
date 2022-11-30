@@ -50,11 +50,22 @@ export const SearchPanel = () => {
             {locations.length > 1
                 && <div className={styles.locations}>
                     {
-                        locations.map(l =>
-                            <button key={l.name}
+                        locations.map((l,index) =>
+                            <button key={index}
                                     className={styles.location}
                                     onClick={() => setLocationHandler(l)}>
-                                {l.name}{l.country}{l.state}
+                                <div>
+                                    <span>city </span>
+                                    {l.name}
+                                </div>
+                                <div>
+                                    <span>state </span>
+                                    {l.state}
+                                </div>
+                                <div>
+                                    <span>country </span>
+                                    {l.country}
+                                </div>
                             </button>)
                     }
                 </div>

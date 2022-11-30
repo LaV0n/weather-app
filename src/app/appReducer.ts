@@ -25,8 +25,6 @@ export type WeatherDataType = {
         temp_max: number
         pressure: number
         humidity: number
-        sea_level: number
-        grnd_level: number
     },
     visibility: number
     wind: {
@@ -79,8 +77,6 @@ const initialState: InitialStateType = {
             temp_max: 0,
             pressure: 0,
             humidity: 0,
-            sea_level: 0,
-            grnd_level: 0,
         },
         visibility: 0,
         wind: {

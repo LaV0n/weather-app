@@ -31,8 +31,6 @@ let initialState: InitialStateType = {
             temp_max: 0,
             pressure: 0,
             humidity: 0,
-            sea_level: 0,
-            grnd_level: 0,
         },
         visibility: 0,
         wind: {
@@ -78,8 +76,6 @@ beforeEach(() => {
                 temp_max: 0,
                 pressure: 0,
                 humidity: 0,
-                sea_level: 0,
-                grnd_level: 0,
             },
             visibility: 0,
             wind: {
