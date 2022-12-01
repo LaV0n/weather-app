@@ -9,6 +9,7 @@ import WbTwilightIcon from '@mui/icons-material/WbTwilight';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NorthIcon from '@mui/icons-material/North';
 import compass from '../../assets/image/Compass_360_(en).svg.png'
+import {BackGroundSelector} from "../../common/utils/backGroundSelector";
 
 export const Main = () => {
 
@@ -22,15 +23,17 @@ export const Main = () => {
         setMore(!more)
     }
     const getTime=(time:number)=>{
-        let date=new Date(time)
+        let date=new Date(time*1000)
         const hour = date.getHours()
         const minutes = date.getMinutes()
         const sec=date.getSeconds()
-        return `${hour}:${minutes}:${sec}`
+        return `${hour}:${minutes>9?minutes:`0${minutes}`}:${sec>9?sec:`0${sec}`}`
     }
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container}
+             style={{background:`url(${BackGroundSelector(weatherData.weather[0].icon)})`,
+                 backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
             <div className={styles.block} style={more ? {height: '100%'} : {minHeight: '50%'}}>
                 <div className={styles.searchBlock}>
                     <SearchPanel/>
@@ -61,7 +64,7 @@ export const Main = () => {
                         <div className={styles.clouds}>
                             <div className={styles.iconBlock}>
                                 <img src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
-                                     alt={'0'}/>
+                                     alt={''}/>
                                 {weatherData.weather[0].main}
                             </div>
                             {more &&
@@ -113,7 +116,7 @@ export const Main = () => {
                         }
                     </div>
                 </div>
-                <Button onClick={setMoreHandler} color={'inherit'}>
+                <Button onClick={setMoreHandler} sx={{color:'white'}}>
                     {more
                         ? <ExpandLessIcon/>
                         : <ExpandMoreIcon/>
