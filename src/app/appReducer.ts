@@ -103,6 +103,10 @@ const slice = createSlice({
         setStatus(state, action: PayloadAction<{ status: StatusType }>) {
             state.status = action.payload.status
         },
+        setNotice(state, action: PayloadAction<{ notice: string }>) {
+            state.notice = action.payload.notice
+        },
+
         setLocations(state,action:PayloadAction<{locations:LocationType[]}>){
             if(action.payload.locations.length!==1){
                 state.locations=action.payload.locations
@@ -134,7 +138,7 @@ const slice = createSlice({
 })
 
 export const appReducer = slice.reducer
-export const {setStatus,setLocations} = slice.actions
+export const {setStatus,setLocations,setNotice} = slice.actions
 
 export const getLocationTC = createAsyncThunk<LocationType, string, { rejectValue: { error: string } }>
 ('app/getLocation',
@@ -158,7 +162,10 @@ export const getLocationTC = createAsyncThunk<LocationType, string, { rejectValu
                         state: res.data[0].state
             }
           dispatch(getWeatherDataTC({lon:res.data[0].lon,lat:res.data[0].lat}))
-            }else {
+            }else if(res.data.length===0){
+                dispatch(setNotice({notice:'Invalid City Name'}))
+                dispatch(setStatus({status:'error'}))
+            }else            {
                 dispatch(setLocations({locations:res.data}))
             }
             return result

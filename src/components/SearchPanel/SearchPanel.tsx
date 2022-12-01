@@ -2,9 +2,9 @@ import styles from "./SearchPanel.module.scss";
 import {IconButton, InputBase} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import {KeyboardEvent, useState} from "react";
-import {useAppDispatch, useAppSelector} from "../app/store";
+import {useAppDispatch, useAppSelector} from "../../app/store";
 import {useNavigate} from "react-router-dom";
-import {getLocationTC, getWeatherDataTC, LocationType, setLocations} from "../app/appReducer";
+import {getLocationTC, getWeatherDataTC, LocationType, setLocations} from "../../app/appReducer";
 
 export const SearchPanel = () => {
 

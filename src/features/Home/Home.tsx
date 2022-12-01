@@ -1,7 +1,7 @@
 import styles from './Home.module.scss'
 import macbookImg from '../../assets/image/MacBook Pro.png'
 import iphoneImg from '../../assets/image/iPhone.png'
-import {SearchPanel} from "../../components/SearchPanel";
+import {SearchPanel} from "../../components/SearchPanel/SearchPanel";
 
 export const Home = () => {
 

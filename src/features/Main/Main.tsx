@@ -1,7 +1,7 @@
 import styles from './Main.module.scss'
 import {useAppSelector} from "../../app/store";
-import {SearchPanel} from "../../components/SearchPanel";
-import {Button} from "@mui/material";
+import {SearchPanel} from "../../components/SearchPanel/SearchPanel";
+import { Backdrop, Button, CircularProgress} from "@mui/material";
 import {useState} from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -10,6 +10,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import NorthIcon from '@mui/icons-material/North';
 import compass from '../../assets/image/Compass_360_(en).svg.png'
 import {BackGroundSelector} from "../../common/utils/backGroundSelector";
+import { AlertMessage } from '../../components/AlertMessage/AlertMessage';
 
 export const Main = () => {
 
@@ -17,7 +18,9 @@ export const Main = () => {
     const country = useAppSelector(state => state.app.location.country)
     const state = useAppSelector(state => state.app.location.state)
     const weatherData = useAppSelector(state => state.app.weatherData)
+    const status = useAppSelector(state=>state.app.status)
     const [more, setMore] = useState(false)
+    const [backDrop,setBackDrop]=useState(true)
 
     const setMoreHandler = () => {
         setMore(!more)
@@ -34,6 +37,16 @@ export const Main = () => {
         <div className={styles.container}
              style={{background:`url(${BackGroundSelector(weatherData.weather[0].icon)})`,
                  backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+            {status==='loading' &&
+                <Backdrop
+                    sx={{ color: '#fff', zIndex:  5 }}
+                    open={status==='loading'}
+                    onClick={()=>setBackDrop(!backDrop)}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            }
+
             <div className={styles.block} style={more ? {height: '100%'} : {minHeight: '50%'}}>
                 <div className={styles.searchBlock}>
                     <SearchPanel/>
@@ -110,7 +123,7 @@ export const Main = () => {
                                     Sunset time: {getTime(weatherData.sys.sunset)}
                                 </div>
                                 <div>
-                                    <span>Weather data on time:</span> {getTime(weatherData.dt)}
+                                    <span>Weather data for the time:</span> {getTime(weatherData.dt)}
                                 </div>
                             </div>
                         }
@@ -123,6 +136,7 @@ export const Main = () => {
                     }
                 </Button>
             </div>
+            <AlertMessage/>
         </div>
     )
 }
