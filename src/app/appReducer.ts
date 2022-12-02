@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {locationAPI} from "../api/location-api";
 import {PositionType, weatherApi} from "../api/weather-api";
+import {errorAsString} from "../common/utils/errorAsString";
 
 export type StatusType = 'success' | 'loading' | 'error'
 export type LocationType={
@@ -169,7 +170,8 @@ export const getLocationTC = createAsyncThunk<LocationType, string, { rejectValu
                 dispatch(setLocations({locations:res.data}))
             }
             return result
-        } catch (error: any) {
+        } catch (err) {
+            const error=errorAsString(err)
             return rejectWithValue({error})
         }
     })
@@ -181,7 +183,8 @@ export const getWeatherDataTC = createAsyncThunk<WeatherDataType, PositionType, 
         try {
             const data = await weatherApi.getWeather(position)
             return data.data
-        } catch (error: any) {
+        } catch (err) {
+            const error=errorAsString(err)
             return rejectWithValue({error})
         }
     })

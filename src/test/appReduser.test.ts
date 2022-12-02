@@ -1,9 +1,12 @@
 import {
     appReducer,
-    getLocationTC,
-    InitialStateType, LocationType,
+    getLocationTC, 
+    InitialStateType, LocationType, setLocations, setNotice,
     setStatus,
 } from "../app/appReducer";
+import {weatherApi} from "../api/weather-api";
+import axios from "axios";
+import { APIKey } from "../api/instance";
 
 let initialState: InitialStateType = {
     location: {
@@ -111,6 +114,7 @@ test('get correct coordinates', () => {
 
         expect(endState.location.name).toBe('London')
         expect(endState.location.lat).toBe(51.5073219)
+        expect(endState.status).toBe('success')
 
     }
 )
@@ -121,4 +125,62 @@ test('change status correct', () => {
     const endState = appReducer(initialState, action)
 
     expect(endState.status).toBe('error')
+})
+
+test('changing notice correct',()=>{
+
+    const action=setNotice({notice:'New error'})
+    const endState=appReducer(initialState,action)
+
+    expect(endState.status).toBe('success')
+    expect(endState.notice).toBe('New error')
+})
+
+test('set correct location',()=>{
+
+    const location=[{
+        name: 'Rome',
+        lon: 12.4829,
+        lat: 41.8933,
+        country: 'IT',
+        state: 'Lazio'
+    }]
+
+    const action=setLocations({locations:location})
+    const endState=appReducer(initialState,action)
+
+    expect(endState.status).toBe('success')
+    expect(endState.location.name).toBe('Rome')
+})
+
+test('weather data is correct from server',async ()=>{
+
+    const position={
+        lon: 12.4829,
+        lat: 41.8933,
+    }
+
+    const data= await weatherApi.getWeather(position)
+    const result=data.status
+
+    expect(result).toBe(200)
+
+})
+
+test('weather data is incorrect from server', async ()=>{
+
+    const position={
+        lon: 1002.4829,
+        lat: 41.8933,
+    }
+    let result
+
+    try {
+        const data=  await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${position.lat}&lon=${position.lon}&appid=${APIKey}&units=metric`)
+        result=data.data
+    }catch (err:any){
+        result=err.message
+    }
+
+    expect(result).toBe('Request failed with status code 400')
 })

@@ -1,7 +1,7 @@
 import styles from './Main.module.scss'
 import {useAppSelector} from "../../app/store";
 import {SearchPanel} from "../../components/SearchPanel/SearchPanel";
-import { Button} from "@mui/material";
+import {Button} from "@mui/material";
 import {useState} from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -10,9 +10,9 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import NorthIcon from '@mui/icons-material/North';
 import compass from '../../assets/image/Compass_360_(en).svg.png'
 import {BackGroundSelector} from "../../common/utils/backGroundSelector";
-import { AlertMessage } from '../../components/AlertMessage/AlertMessage';
+import {AlertMessage} from '../../components/AlertMessage/AlertMessage';
 import {LoadingCurcular} from "../../components/LoadingCircular/LoadingCurcular";
-import { getTime } from '../../common/utils/getTime';
+import {getTime} from '../../common/utils/getTime';
 
 export const Main = () => {
 
@@ -21,16 +21,25 @@ export const Main = () => {
     const state = useAppSelector(state => state.app.location.state)
     const weatherData = useAppSelector(state => state.app.weatherData)
     const [more, setMore] = useState(false)
+    const [longDiv, setLongDiv] = useState(false)
 
-    const setMoreHandler = () => {
-        setMore(!more)
+    const setMoreHandler =  () => {
+        if(more){
+            setMore(false)
+            setLongDiv(false)
+        }else {
+            setLongDiv(true)
+            setTimeout(()=>{setMore(true)},1000)
+        }
     }
 
     return (
         <div className={styles.container}
-             style={{background:`url(${BackGroundSelector(weatherData.weather[0].icon)})`,
-                 backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
-            <div className={more ? styles.blockLong : styles.block} >
+             style={{
+                 background: `url(${BackGroundSelector(weatherData.weather[0].icon)})`,
+                 backgroundRepeat: 'no-repeat', backgroundSize: 'cover'
+             }}>
+            <div className={longDiv ? styles.blockLong : styles.block}>
                 <div className={styles.searchBlock}>
                     <SearchPanel/>
                 </div>
@@ -91,7 +100,7 @@ export const Main = () => {
                                     <div>Wind direction:</div>
                                     <div className={styles.compassBlock}>
                                         <img src={compass} alt={'0'} className={styles.compass}/>
-                                        <NorthIcon style={{transform:`rotate(${weatherData.wind.deg}deg)`}}/>
+                                        <NorthIcon style={{transform: `rotate(${weatherData.wind.deg}deg)`}}/>
                                     </div>
                                 </div>
                                 <div>
@@ -99,20 +108,20 @@ export const Main = () => {
                                 </div>
                                 <div>
                                     <LightModeIcon/>
-                                    Sunrise time: { getTime(weatherData.sys.sunrise) }
+                                    Sunrise time: {getTime(weatherData.sys.sunrise)}
                                 </div>
                                 <div>
                                     <WbTwilightIcon/>
                                     Sunset time: {getTime(weatherData.sys.sunset)}
                                 </div>
-                                <div >
+                                <div>
                                     <span>Weather data for the time:</span> {getTime(weatherData.dt)}
                                 </div>
                             </div>
                         }
                     </div>
                 </div>
-                <Button onClick={setMoreHandler} sx={{color:'white'}}>
+                <Button onClick={setMoreHandler} sx={{color: 'white'}}>
                     {more
                         ? <ExpandLessIcon/>
                         : <ExpandMoreIcon/>

@@ -43,6 +43,7 @@ export const SearchPanel = () => {
                 <IconButton type="button"
                             className={styles.searchButton}
                             aria-label="search"
+                            disabled={value.length === 0}
                             onClick={searchHandler}>
                     <SearchIcon/>
                 </IconButton>
