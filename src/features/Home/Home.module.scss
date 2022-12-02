@@ -1,3 +1,5 @@
+@import "../../common/sass/sass";
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -5,7 +7,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(103.6deg, #C08CEA 58.43%, rgba(150, 199, 255, 0) 105.78%);;
+  background: linear-gradient(103.6deg, #C08CEA 58.43%, rgba(150, 199, 255, 0) 105.78%);
+  @media screen and (max-width: $medium){
+    flex-direction: column;
+    justify-content: space-around;
+  }
 
   .inputBlock {
     width: 50%;
@@ -15,6 +21,10 @@
     align-items: center;
     justify-content: center;
     gap:20px;
+    @media screen and (max-width: $medium){
+      height: auto;
+      width: 100%;
+    }
 
     p{
       font-size: 30px;
@@ -27,6 +37,10 @@
 
   .imgBlock {
     width: 50%;
+    @media screen and (max-width: $medium){
+
+      width: 100%;
+    }
 
     img {
     width: 100%;

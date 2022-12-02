@@ -8,7 +8,6 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import WbTwilightIcon from '@mui/icons-material/WbTwilight';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NorthIcon from '@mui/icons-material/North';
-import compass from '../../assets/image/Compass_360_(en).svg.png'
 import {BackGroundSelector} from "../../common/utils/backGroundSelector";
 import {AlertMessage} from '../../components/AlertMessage/AlertMessage';
 import {LoadingCurcular} from "../../components/LoadingCircular/LoadingCurcular";
@@ -98,9 +97,8 @@ export const Main = () => {
                             <div>
                                 <div className={styles.windDirecrion}>
                                     <div>Wind direction:</div>
-                                    <div className={styles.compassBlock}>
-                                        <img src={compass} alt={'0'} className={styles.compass}/>
-                                        <NorthIcon style={{transform: `rotate(${weatherData.wind.deg}deg)`}}/>
+                                    <div className={styles.compassBlock} >
+                                        <NorthIcon style={{transform: `rotate(${weatherData.wind.deg}deg)`,filter:'invert(1)'}}/>
                                     </div>
                                 </div>
                                 <div>

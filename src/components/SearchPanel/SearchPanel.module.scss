@@ -1,5 +1,10 @@
+@import "../../common/sass/sass";
+
 .inputBlock {
   width: 70%;
+  @media screen and (max-width: $medium){
+    width: 95%;
+  }
 
   .inputForm {
     width: 100%;
@@ -13,6 +18,9 @@
       padding: 0 20px;
       font-size: 30px;
       color: white;
+      @media screen and (max-width: $medium){
+        font-size: 24px;
+      }
     }
 
     .searchButton {
@@ -28,6 +36,9 @@
     border-radius: 10px;
     position: absolute;
     width:calc(60vw * 0.7) ;
+    @media screen and (max-width: $medium){
+      width: 95%;
+    }
 
     .location {
       width: 100%;

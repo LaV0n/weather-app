@@ -1,6 +1,6 @@
 import {
     appReducer,
-    getLocationTC, 
+    getLocationTC,
     InitialStateType, LocationType, setLocations, setNotice,
     setStatus,
 } from "../app/appReducer";
