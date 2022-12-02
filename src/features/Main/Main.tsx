@@ -1,7 +1,7 @@
 import styles from './Main.module.scss'
 import {useAppSelector} from "../../app/store";
 import {SearchPanel} from "../../components/SearchPanel/SearchPanel";
-import { Backdrop, Button, CircularProgress} from "@mui/material";
+import { Button} from "@mui/material";
 import {useState} from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -11,6 +11,8 @@ import NorthIcon from '@mui/icons-material/North';
 import compass from '../../assets/image/Compass_360_(en).svg.png'
 import {BackGroundSelector} from "../../common/utils/backGroundSelector";
 import { AlertMessage } from '../../components/AlertMessage/AlertMessage';
+import {LoadingCurcular} from "../../components/LoadingCircular/LoadingCurcular";
+import { getTime } from '../../common/utils/getTime';
 
 export const Main = () => {
 
@@ -18,36 +20,17 @@ export const Main = () => {
     const country = useAppSelector(state => state.app.location.country)
     const state = useAppSelector(state => state.app.location.state)
     const weatherData = useAppSelector(state => state.app.weatherData)
-    const status = useAppSelector(state=>state.app.status)
     const [more, setMore] = useState(false)
-    const [backDrop,setBackDrop]=useState(true)
 
     const setMoreHandler = () => {
         setMore(!more)
-    }
-    const getTime=(time:number)=>{
-        let date=new Date(time*1000)
-        const hour = date.getHours()
-        const minutes = date.getMinutes()
-        const sec=date.getSeconds()
-        return `${hour}:${minutes>9?minutes:`0${minutes}`}:${sec>9?sec:`0${sec}`}`
     }
 
     return (
         <div className={styles.container}
              style={{background:`url(${BackGroundSelector(weatherData.weather[0].icon)})`,
                  backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
-            {status==='loading' &&
-                <Backdrop
-                    sx={{ color: '#fff', zIndex:  5 }}
-                    open={status==='loading'}
-                    onClick={()=>setBackDrop(!backDrop)}
-                >
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-            }
-
-            <div className={styles.block} style={more ? {height: '100%'} : {minHeight: '50%'}}>
+            <div className={more ? styles.blockLong : styles.block} >
                 <div className={styles.searchBlock}>
                     <SearchPanel/>
                 </div>
@@ -122,7 +105,7 @@ export const Main = () => {
                                     <WbTwilightIcon/>
                                     Sunset time: {getTime(weatherData.sys.sunset)}
                                 </div>
-                                <div>
+                                <div >
                                     <span>Weather data for the time:</span> {getTime(weatherData.dt)}
                                 </div>
                             </div>
@@ -137,6 +120,7 @@ export const Main = () => {
                 </Button>
             </div>
             <AlertMessage/>
+            <LoadingCurcular/>
         </div>
     )
 }

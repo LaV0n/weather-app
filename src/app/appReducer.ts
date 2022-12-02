@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {locationAPI} from "../api/location-api";
 import {PositionType, weatherApi} from "../api/weather-api";
 
-type StatusType = 'success' | 'loading' | 'error'
+export type StatusType = 'success' | 'loading' | 'error'
 export type LocationType={
     name: string
     lon: number,
