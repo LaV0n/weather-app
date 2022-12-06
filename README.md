@@ -1,6 +1,6 @@
 # Weather App
 
-with responsive design, unit and integration tests
+with responsive design, unit and integration tests. API from openweathermap.org
 
 https://lav0n.github.io/weather-app/
 # 
