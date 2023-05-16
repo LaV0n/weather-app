@@ -13,6 +13,7 @@ import { BackGroundSelector } from '../../common/utils/backGroundSelector'
 import { AlertMessage } from '../../components/AlertMessage/AlertMessage'
 import { LoadingCurcular } from '../../components/LoadingCircular/LoadingCurcular'
 import { getTime } from '../../common/utils/getTime'
+import { Forecast } from './Forecast/Forecast'
 
 export const Main = () => {
    const locationName = useAppSelector(state => state.app.location.name)
@@ -49,7 +50,7 @@ export const Main = () => {
             </div>
             <div className={styles.dataBlock}>
                <div className={styles.cityName}>
-                  Weather in {locationName}
+                  Weather now in {locationName}
                   <div className={styles.country}>
                      <div>
                         country: <span>{country}</span>
@@ -124,6 +125,7 @@ export const Main = () => {
                {more ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </Button>
          </div>
+         <Forecast />
          <AlertMessage />
          <LoadingCurcular />
       </div>

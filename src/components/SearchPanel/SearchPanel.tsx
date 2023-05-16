@@ -41,10 +41,11 @@ export const SearchPanel = () => {
    }
 
    useEffect(() => {
-      let currentCity = localStorage.getItem('location')
+      const currentCity = localStorage.getItem('location')
       if (currentCity) {
-         currentCity = JSON.parse(currentCity)
-         dispatch(getWeatherDataTC({ lon: currentCity!.lon, lat: currentCity!.lat }))
+         const location: LocationType = JSON.parse(currentCity)
+         dispatch(getWeatherDataTC({ lon: location.lon, lat: location.lat }))
+         dispatch(setLocations({ locations: [location] }))
          navigate('/main')
       }
    }, [])

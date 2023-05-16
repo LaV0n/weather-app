@@ -50,6 +50,7 @@ export type InitialStateType = {
    status: StatusType
    notice: string
    weatherData: WeatherDataType
+   forecastWeatherData: WeatherDataType[]
 }
 
 const initialState: InitialStateType = {
@@ -95,6 +96,7 @@ const initialState: InitialStateType = {
       },
       timezone: 0,
    },
+   forecastWeatherData: [],
 }
 
 const slice = createSlice({
@@ -115,6 +117,9 @@ const slice = createSlice({
             state.locations = action.payload.locations
             state.location = action.payload.locations[0]
          }
+      },
+      setForecastWeatherData(state, action: PayloadAction<WeatherDataType[]>) {
+         state.forecastWeatherData = action.payload
       },
    },
    extraReducers: builder => {
@@ -142,7 +147,7 @@ const slice = createSlice({
 })
 
 export const appReducer = slice.reducer
-export const { setStatus, setLocations, setNotice } = slice.actions
+export const { setStatus, setLocations, setNotice, setForecastWeatherData } = slice.actions
 
 export const getLocationTC = createAsyncThunk<
    LocationType,
@@ -189,6 +194,8 @@ export const getWeatherDataTC = createAsyncThunk<
    dispatch(setStatus({ status: 'loading' }))
    try {
       const data = await weatherApi.getWeather(position)
+      const forecast = await weatherApi.getWeatherForecast(position)
+      dispatch(setForecastWeatherData(forecast.data.list))
       return data.data
    } catch (err) {
       const error = errorAsString(err)
