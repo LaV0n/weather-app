@@ -1,3 +1,6 @@
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
 export const getTime = (time: number) => {
    const date = new Date(time * 1000)
    const hour = date.getHours()
@@ -8,4 +11,16 @@ export const getTime = (time: number) => {
 export const getDay = (time: number) => {
    const date = new Date(time * 1000)
    return date.getDate()
+}
+
+export const getWeekDay = (time: number) => {
+   const date = new Date(time * 1000)
+   return week[date.getDay()]
+}
+
+export const getDate = (time: number) => {
+   const date = new Date(time * 1000)
+   const day = date.getDate()
+   const month = months[date.getMonth()]
+   return `${day} ${month}`
 }

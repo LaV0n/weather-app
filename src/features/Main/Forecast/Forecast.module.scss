@@ -1,0 +1,36 @@
+@import "../../../common/sass/sass";
+
+.container{
+    width: 60%;
+    height: 20%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: space-around;
+    align-items: center;
+    transition-property:height;
+    transition-timing-function: ease-in-out;
+    transition-duration: 1s;
+    overflow: auto;
+    overflow-x: hidden;
+    @include scrollbar();
+    @media screen and (max-width: $medium){
+        width: 100%;
+        height: 30%;
+        border-radius: 0;
+    }
+    .block {
+        padding-top: 20px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+}
+.containerLong{
+    @extend .container;
+    height: 100%;
+}

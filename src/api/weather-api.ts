@@ -14,7 +14,7 @@ export const weatherApi = {
    },
    getWeatherForecast(position: PositionType) {
       return instance.get(
-         `data/2.5/forecast?lat=${position.lat}&lon=${position.lon}&cnt=40&appid=${APIKey}`
+         `data/2.5/forecast?lat=${position.lat}&lon=${position.lon}&cnt=40&appid=${APIKey}&units=metric`
       )
    },
 }

@@ -1,0 +1,29 @@
+.dayBlock{
+    width: 15%;
+    height: 100%;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .weekDay {
+        font-weight: 400;
+        font-size: 18px;
+        font-family: 'Poppins', sans-serif;
+    }
+    .dataBlock{
+        color: rgba(255, 255, 255, 0.5);
+    }
+    .description{
+        font-size: 18px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+     img{
+         width: 50px;
+     }
+    }
+}
