@@ -6,11 +6,11 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap:5%;
   align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   @media screen and (max-width: $medium){
     width: 100%;
     min-height: 100vh;
-    gap: 0;
   }
 }

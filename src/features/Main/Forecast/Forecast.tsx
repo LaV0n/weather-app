@@ -35,7 +35,7 @@ export const Forecast = ({ longDiv, more, setMoreHandler, hidden }: ForecastType
       >
          <div className={style.block}>
             {sortForecastData.map((d, index) => (
-               <DayWeather key={index} forecastData={d} />
+               <DayWeather key={index} forecastData={d} longDiv={longDiv} />
             ))}
          </div>
          <Button onClick={setMoreHandler} sx={{ color: 'white', height: 30 }}>

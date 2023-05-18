@@ -3,7 +3,7 @@ import { locationAPI } from '../api/location-api'
 import { PositionType, weatherApi } from '../api/weather-api'
 import { errorAsString } from '../common/utils/errorAsString'
 
-export type StatusType = 'success' | 'loading' | 'error'
+export type StatusType = 'success' | 'loading' | 'error' | 'initial'
 export type LocationType = {
    name: string
    lon: number
@@ -28,6 +28,7 @@ export type WeatherDataType = {
       humidity: number
    }
    visibility: number
+   pop?: number
    wind: {
       speed: number
       deg: number
@@ -62,7 +63,7 @@ const initialState: InitialStateType = {
       state: '',
    },
    locations: [],
-   status: 'success',
+   status: 'initial',
    notice: '',
    weatherData: {
       weather: [
@@ -124,7 +125,7 @@ const slice = createSlice({
    },
    extraReducers: builder => {
       builder.addCase(getLocationTC.fulfilled, (state, action) => {
-         state.location = action.payload
+         if (action.payload.name) state.location = action.payload
          state.status = 'success'
       })
       builder.addCase(getLocationTC.rejected, (state, action) => {

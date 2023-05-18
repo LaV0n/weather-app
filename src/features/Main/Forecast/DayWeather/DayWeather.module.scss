@@ -1,8 +1,10 @@
+@import "../../../../common/sass/sass";
+
 .dayBlock{
     width: 15%;
     height: 100%;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: $mainColor;
+    border: 1px solid $secondColor;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -13,7 +15,8 @@
         font-family: 'Poppins', sans-serif;
     }
     .dataBlock{
-        color: rgba(255, 255, 255, 0.5);
+        color: $secondColor;
+        margin-bottom: 10px;
     }
     .description{
         font-size: 18px;
@@ -25,5 +28,17 @@
      img{
          width: 50px;
      }
+    }
+}
+.dataBlockLongDiv{
+    @extend .dayBlock;
+    justify-content: flex-start;
+    height: max-content;
+    border: none;
+    .hourForecast{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: flex-start;
     }
 }

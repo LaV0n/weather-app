@@ -35,8 +35,6 @@ export const Main = () => {
          className={styles.container}
          style={{
             background: `url(${BackGroundSelector(weatherData.weather[0].icon)})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
          }}
       >
          <Weather
