@@ -8,7 +8,7 @@
 
   .inputForm {
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $secondBackgroundColor;
     display: flex;
     border-radius: 30px;
     justify-content: space-between;
@@ -17,7 +17,7 @@
     .input {
       padding: 0 20px;
       font-size: 30px;
-      color: white;
+      color: $mainColor;
       @media screen and (max-width: $medium){
         font-size: 24px;
       }
@@ -28,7 +28,7 @@
       height: 10px;
       margin-right: 10px;
       padding: 20px 20px;
-      background-color: white;
+      background-color: $mainColor;
     }
   }
 
@@ -59,7 +59,7 @@
       }
 
       &:hover {
-        background-color: rgb(255, 255, 255);
+        background-color: $mainColor;
       }
     }
   }

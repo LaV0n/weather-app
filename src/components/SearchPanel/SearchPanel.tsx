@@ -38,6 +38,7 @@ export const SearchPanel = () => {
       )
       dispatch(getWeatherDataTC({ lon: l.lon, lat: l.lat }))
       dispatch(setLocations({ locations: [l] }))
+      setValue('')
    }
 
    useEffect(() => {
@@ -49,6 +50,12 @@ export const SearchPanel = () => {
          navigate('/main')
       }
    }, [])
+
+   useEffect(() => {
+      if (value.length > 2) {
+         dispatch(getLocationTC(value))
+      }
+   }, [value])
 
    return (
       <div className={styles.inputBlock}>
