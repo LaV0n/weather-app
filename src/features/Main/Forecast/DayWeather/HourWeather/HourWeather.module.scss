@@ -1,0 +1,51 @@
+@import "../../../../../common/sass/sass";
+
+.block{
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  background: $secondBackgroundColor;
+  border-radius: 10px;
+  .time{
+    position: absolute;
+    color: $secondColor;
+    left: 10px;
+  }
+  .description{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    @media screen and (max-width: $mediumHigh){
+      justify-content: center;
+      gap:5px;
+    }
+    img{
+      width: 20px;
+      filter: invert(1);
+    }
+  }
+  .temperatureBlock{
+    display: flex;
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 22px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    img{
+      width: 50px;
+    }
+    .temperatureData{
+      display: flex;
+      flex-direction: column;
+      .weatherData{
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@import "../../../../common/sass/sass";
+
+.dayBlock{
+    width: 15%;
+    height: 100%;
+    color: $mainColor;
+    border: 1px solid $secondColor;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .weekDay {
+        font-weight: 400;
+        font-size: 18px;
+        font-family: 'Poppins', sans-serif;
+    }
+    .dataBlock{
+        color: $secondColor;
+        margin-bottom: 10px;
+    }
+    .description{
+        font-size: 18px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+     img{
+         width: 50px;
+     }
+    }
+}
+.dataBlockLongDiv{
+    @extend .dayBlock;
+    justify-content: flex-start;
+    height: max-content;
+    border: none;
+    .hourForecast{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: flex-start;
+    }
+}
