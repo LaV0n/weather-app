@@ -8,16 +8,16 @@ Stack: *React/Redux/MUI/Axios/SASS*
 ## Start screen. 
 
 ![](https://github.com/LaV0n/weather-app/blob/master/src/assets/image/Screenshot_1.png)
-## Main screen with a choice of a specific city.
+## Current weather and short forecast (last requested city is saved).
 
 ![](https://github.com/LaV0n/weather-app/blob/master/src/assets/image/Screenshot_2.png)
-## Window with basic weather information
+## Window with full information about weather now
 
 ![](https://github.com/LaV0n/weather-app/blob/master/src/assets/image/Screenshot_3.png)
-## Window with full weather information
+## Forecast for 5 days with an interval of 3 hours
 
 ![](https://github.com/LaV0n/weather-app/blob/master/src/assets/image/Screenshot_4.png)
-## Dispaly error information when entering a wrong city or bad connection
+## Display error information when entering a wrong city or bad connection
 
 ![](https://github.com/LaV0n/weather-app/blob/master/src/assets/image/Screenshot_5.png)
 ## Mobile view
