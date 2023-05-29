@@ -13,6 +13,14 @@ export const getDay = (time: number) => {
    return date.getDate()
 }
 
+export const getMonth = (time: number) => {
+   const date = new Date(time * 1000)
+   return date.getMonth()
+}
+
+export const daysInMonth = (time: number) => {
+   return new Date(new Date().getFullYear(), new Date(time * 1000).getMonth(), 0).getDate() + 1
+}
 export const getWeekDay = (time: number) => {
    const date = new Date(time * 1000)
    return week[date.getDay()]

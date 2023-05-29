@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import style from './Forecast.module.scss'
 import { DayWeather } from './DayWeather/DayWeather'
 import { useAppSelector } from '../../../app/store'
-import { getDay } from '../../../common/utils/getTime'
+import { daysInMonth, getDay, getMonth } from '../../../common/utils/getTime'
 import { WeatherDataType } from '../../../app/appReducer'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -24,7 +24,13 @@ export const Forecast = ({ longDiv, more, setMoreHandler, hidden }: ForecastType
    useEffect(() => {
       if (!currentTime) return
       const sortData: SortForecastDataType = [[], [], [], [], [], []]
-      forecastWeatherData.map(f => sortData[getDay(f.dt) - getDay(currentTime)].push(f))
+      forecastWeatherData.map(f => {
+         if (getMonth(currentTime) !== getMonth(f.dt)) {
+            sortData[getDay(f.dt) - getDay(currentTime) + daysInMonth(currentTime)].push(f)
+         } else {
+            sortData[getDay(f.dt) - getDay(currentTime)].push(f)
+         }
+      })
       setSortForecastData(sortData)
    }, [forecastWeatherData, currentTime])
 

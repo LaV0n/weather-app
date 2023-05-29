@@ -39,6 +39,7 @@ export const SearchPanel = () => {
       dispatch(getWeatherDataTC({ lon: l.lon, lat: l.lat }))
       dispatch(setLocations({ locations: [l] }))
       setValue('')
+      navigate('/main')
    }
 
    useEffect(() => {
