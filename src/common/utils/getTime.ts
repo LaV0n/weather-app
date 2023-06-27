@@ -19,7 +19,7 @@ export const getMonth = (time: number) => {
 }
 
 export const daysInMonth = (time: number) => {
-   return new Date(new Date().getFullYear(), new Date(time * 1000).getMonth(), 0).getDate() + 1
+   return new Date(new Date().getFullYear(), new Date(time * 1000).getMonth() + 1, 0).getDate()
 }
 export const getWeekDay = (time: number) => {
    const date = new Date(time * 1000)
